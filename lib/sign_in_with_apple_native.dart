@@ -1,0 +1,8 @@
+
+import 'sign_in_with_apple_native_platform_interface.dart';
+
+class SignInWithAppleNative {
+  Future<String?> getPlatformVersion() {
+    return SignInWithAppleNativePlatform.instance.getPlatformVersion();
+  }
+}
