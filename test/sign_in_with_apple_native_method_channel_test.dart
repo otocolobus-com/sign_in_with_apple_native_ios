@@ -5,11 +5,13 @@ import 'package:sign_in_with_apple_native/sign_in_with_apple_native_method_chann
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MethodChannelSignInWithAppleNative platform = MethodChannelSignInWithAppleNative();
+  MethodChannelSignInWithAppleNative platform =
+      MethodChannelSignInWithAppleNative();
   const MethodChannel channel = MethodChannel('sign_in_with_apple_native');
 
   setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
         return '42';
@@ -18,7 +20,8 @@ void main() {
   });
 
   tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
   });
 
   test('getPlatformVersion', () async {

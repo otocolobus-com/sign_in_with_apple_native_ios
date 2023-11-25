@@ -3,12 +3,12 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'sign_in_with_apple_native_method_channel.dart';
 
 abstract class SignInWithAppleNativePlatform extends PlatformInterface {
-  /// Constructs a SignInWithAppleNativePlatform.
   SignInWithAppleNativePlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static SignInWithAppleNativePlatform _instance = MethodChannelSignInWithAppleNative();
+  static SignInWithAppleNativePlatform _instance =
+      MethodChannelSignInWithAppleNative();
 
   /// The default instance of [SignInWithAppleNativePlatform] to use.
   ///
@@ -25,5 +25,9 @@ abstract class SignInWithAppleNativePlatform extends PlatformInterface {
 
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<bool> isAvailable() {
+    throw UnimplementedError('isAvailable() has not been implemented.');
   }
 }

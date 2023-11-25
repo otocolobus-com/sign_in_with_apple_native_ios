@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native.dart';
+import 'package:sign_in_with_apple_native/sign_in_with_apple_native_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +33,8 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await _signInWithAppleNativePlugin.getPlatformVersion() ?? 'Unknown platform version';
+          await _signInWithAppleNativePlugin.getPlatformVersion() ??
+              'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -55,7 +57,14 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(children: [
+            Text('Running on: $_platformVersion\n'),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 60,
+              child: const SignInWithAppleNativeButton(),
+            ),
+          ]),
         ),
       ),
     );

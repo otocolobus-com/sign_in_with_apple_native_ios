@@ -7,13 +7,16 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockSignInWithAppleNativePlatform
     with MockPlatformInterfaceMixin
     implements SignInWithAppleNativePlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<bool> isAvailable() => Future.value(true);
 }
 
 void main() {
-  final SignInWithAppleNativePlatform initialPlatform = SignInWithAppleNativePlatform.instance;
+  final SignInWithAppleNativePlatform initialPlatform =
+      SignInWithAppleNativePlatform.instance;
 
   test('$MethodChannelSignInWithAppleNative is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelSignInWithAppleNative>());
@@ -21,7 +24,8 @@ void main() {
 
   test('getPlatformVersion', () async {
     SignInWithAppleNative signInWithAppleNativePlugin = SignInWithAppleNative();
-    MockSignInWithAppleNativePlatform fakePlatform = MockSignInWithAppleNativePlatform();
+    MockSignInWithAppleNativePlatform fakePlatform =
+        MockSignInWithAppleNativePlatform();
     SignInWithAppleNativePlatform.instance = fakePlatform;
 
     expect(await signInWithAppleNativePlugin.getPlatformVersion(), '42');
