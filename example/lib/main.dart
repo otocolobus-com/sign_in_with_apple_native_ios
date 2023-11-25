@@ -62,7 +62,11 @@ class _MyAppState extends State<MyApp> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               height: 60,
-              child: const SignInWithAppleNativeButton(),
+              child: SignInWithAppleNativeButton(
+                onPressed: () {
+                  print('onPressed');
+                },
+              ),
             ),
           ]),
         ),

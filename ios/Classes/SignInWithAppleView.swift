@@ -13,18 +13,30 @@ class SignInWithAppleView : NSObject, FlutterPlatformView, ASAuthorizationContro
     let frame: CGRect
     let viewId: Int64
     let args: Any?
+    let messenger: FlutterBinaryMessenger
 
-    init(frame: CGRect, viewId: Int64, args: Any?) {
+    let methodChannel: FlutterMethodChannel
+
+    init(frame: CGRect, viewId: Int64, args: Any?, messenger: FlutterBinaryMessenger) {
         self.frame = frame
         self.viewId = viewId
         self.args = args
+        self.messenger = messenger
+        
+        self.methodChannel = FlutterMethodChannel(name: "SignInWithAppleNativeButton_\(viewId)", binaryMessenger: messenger)
     }
-    
+
     func view() -> UIView {
         if #available(iOS 13, *) {
-            return ASAuthorizationAppleIDButton(frame: frame)
+            let button = ASAuthorizationAppleIDButton(frame: frame)
+            button.addTarget(self, action: #selector(onPressed), for: .touchUpInside)
+            return button
         }
-        
+
         return UIView()
+    }
+
+    @objc func onPressed() {
+        methodChannel.invokeMethod("onPressed", arguments: nil)
     }
 }

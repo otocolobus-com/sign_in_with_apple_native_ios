@@ -6,8 +6,8 @@ public class SignInWithAppleNativePlugin: NSObject, FlutterPlugin {
     let channel = FlutterMethodChannel(name: "SignInWithAppleNative", binaryMessenger: registrar.messenger())
     let instance = SignInWithAppleNativePlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
-    
-    let viewFactory = SignInWithAppleViewFactory.init()
+
+    let viewFactory = SignInWithAppleViewFactory.init(messenger: registrar.messenger())
     registrar.register(viewFactory, withId: "SignInWithAppleNativeButton")
   }
 
