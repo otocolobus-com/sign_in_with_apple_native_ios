@@ -8,9 +8,6 @@ class MockSignInWithAppleNativePlatform
     with MockPlatformInterfaceMixin
     implements SignInWithAppleNativePlatform {
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
-
-  @override
   Future<bool> isAvailable() => Future.value(true);
 
   @override
@@ -25,12 +22,12 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelSignInWithAppleNative>());
   });
 
-  test('getPlatformVersion', () async {
+  test('isAvailable', () async {
     SignInWithAppleNative signInWithAppleNativePlugin = SignInWithAppleNative();
     MockSignInWithAppleNativePlatform fakePlatform =
         MockSignInWithAppleNativePlatform();
     SignInWithAppleNativePlatform.instance = fakePlatform;
 
-    expect(await signInWithAppleNativePlugin.getPlatformVersion(), '42');
+    expect(await signInWithAppleNativePlugin.isAvailable(), true);
   });
 }

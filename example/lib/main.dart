@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  bool _isAvailable = false;
   final _signInWithAppleNativePlugin = SignInWithAppleNative();
 
   @override
@@ -28,15 +28,13 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    bool isAvailable;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _signInWithAppleNativePlugin.getPlatformVersion() ??
-              'Unknown platform version';
+      isAvailable = await _signInWithAppleNativePlugin.isAvailable();
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      isAvailable = false;
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -45,7 +43,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      _isAvailable = isAvailable;
     });
   }
 
@@ -58,7 +56,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Column(children: [
-            Text('Running on: $_platformVersion\n'),
+            Text('Is "Sign In with Apple" available: $_isAvailable\n'),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               height: 60,

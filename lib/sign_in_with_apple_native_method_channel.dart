@@ -8,13 +8,6 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
   final methodChannel = const MethodChannel('SignInWithAppleNative');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
-  }
-
-  @override
   Future<bool> isAvailable() async {
     final isAvailable = await methodChannel.invokeMethod<bool>('isAvailable');
     return isAvailable ?? false;
@@ -29,6 +22,6 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
       throw Exception(result["error"]);
     }
 
-    return result["credentials"] ?? {};
+    return result["credential"] ?? {};
   }
 }

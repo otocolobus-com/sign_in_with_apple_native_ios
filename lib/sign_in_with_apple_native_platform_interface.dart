@@ -23,10 +23,6 @@ abstract class SignInWithAppleNativePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
-
   Future<bool> isAvailable() {
     throw UnimplementedError('isAvailable() has not been implemented.');
   }

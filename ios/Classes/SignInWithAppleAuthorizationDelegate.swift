@@ -11,7 +11,9 @@ class SignInWithAppleAuthorizationDelegate: NSObject, ASAuthorizationControllerD
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let authorizationResult = authorization.credential as? ASAuthorizationAppleIDCredential {
-            callback(["credential": authorizationResult])
+            callback(["credential": [
+                "user": authorizationResult.user
+            ]])
         }
 
         callback(["error": "Notauthorized"])
