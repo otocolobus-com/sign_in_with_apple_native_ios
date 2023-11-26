@@ -1,7 +1,6 @@
 import Foundation
 import Flutter
 
-@available(iOS 13, *)
 class SignInWithAppleViewFactory : NSObject, FlutterPlatformViewFactory {
     let messenger: FlutterBinaryMessenger
 

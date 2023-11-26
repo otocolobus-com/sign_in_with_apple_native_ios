@@ -1,7 +1,6 @@
 import Foundation
 import AuthenticationServices
 
-@available(iOS 13, *)
 class SignInWithAppleAuthorizationDelegate: NSObject, ASAuthorizationControllerDelegate {
     let callback: (_ authorizationResult: [String: Any]) -> Void
 

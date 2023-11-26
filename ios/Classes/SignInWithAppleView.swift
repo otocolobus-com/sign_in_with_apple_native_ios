@@ -2,7 +2,6 @@ import Foundation
 import Flutter
 import AuthenticationServices
 
-@available(iOS 13, *)
 class SignInWithAppleView : NSObject, FlutterPlatformView, ASAuthorizationControllerDelegate {
     let frame: CGRect
     let viewId: Int64
