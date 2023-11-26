@@ -18,7 +18,7 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
     final result =
         await methodChannel.invokeMapMethod<String, dynamic>('authorize') ?? {};
 
-    if (result.containsKey("error")) {
+    if (result.keys.isEmpty || result.containsKey("error")) {
       throw Exception(result["error"]);
     }
 

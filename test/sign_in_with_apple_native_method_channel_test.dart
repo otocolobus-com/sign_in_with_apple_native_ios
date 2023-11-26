@@ -7,7 +7,7 @@ void main() {
 
   MethodChannelSignInWithAppleNative platform =
       MethodChannelSignInWithAppleNative();
-  const MethodChannel channel = MethodChannel('sign_in_with_apple_native');
+  const MethodChannel channel = MethodChannel('SignInWithAppleNative');
 
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
