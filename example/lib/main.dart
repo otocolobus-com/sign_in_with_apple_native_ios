@@ -63,8 +63,8 @@ class _MyAppState extends State<MyApp> {
               width: MediaQuery.of(context).size.width * 0.8,
               height: 60,
               child: SignInWithAppleNativeButton(
-                onPressed: () {
-                  print('onPressed');
+                onPressed: () async {
+                  await _authorize();
                 },
               ),
             ),
@@ -72,5 +72,14 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  Future<void> _authorize() async {
+    try {
+      final isAuthorized = await _signInWithAppleNativePlugin.authorize();
+      print('isAuthorized: $isAuthorized');
+    } catch (e) {
+      print('isAuthorized: false');
+    }
   }
 }

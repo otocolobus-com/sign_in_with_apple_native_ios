@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import AuthenticationServices
 
 public class SignInWithAppleNativePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -22,6 +23,24 @@ public class SignInWithAppleNativePlugin: NSObject, FlutterPlugin {
         }
 
         result(false)
+    case "authorize":
+        if #available(iOS 13, *) {
+            let provider = ASAuthorizationAppleIDProvider()
+            let request = provider.createRequest()
+            request.requestedScopes = []
+            let controller = ASAuthorizationController(authorizationRequests: [request])
+            var delegate: ASAuthorizationControllerDelegate?
+            delegate = SignInWithAppleAuthorizationDelegate(
+                callback: {payload in
+                    result(payload)
+                    delegate = nil
+                }
+            )
+            controller.delegate = delegate
+            controller.performRequests()
+        } else {
+            result(FlutterMethodNotImplemented)
+        }
     default:
       result(FlutterMethodNotImplemented)
     }

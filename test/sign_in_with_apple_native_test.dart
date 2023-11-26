@@ -12,6 +12,9 @@ class MockSignInWithAppleNativePlatform
 
   @override
   Future<bool> isAvailable() => Future.value(true);
+
+  @override
+  Future<Map> authorize() => Future.value({});
 }
 
 void main() {

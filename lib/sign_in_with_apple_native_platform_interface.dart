@@ -30,4 +30,8 @@ abstract class SignInWithAppleNativePlatform extends PlatformInterface {
   Future<bool> isAvailable() {
     throw UnimplementedError('isAvailable() has not been implemented.');
   }
+
+  Future<Map> authorize() {
+    throw UnimplementedError('authorize() has not been implemented.');
+  }
 }

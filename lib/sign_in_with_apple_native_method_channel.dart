@@ -19,4 +19,16 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
     final isAvailable = await methodChannel.invokeMethod<bool>('isAvailable');
     return isAvailable ?? false;
   }
+
+  @override
+  Future<Map> authorize() async {
+    final result =
+        await methodChannel.invokeMapMethod<String, dynamic>('authorize') ?? {};
+
+    if (result.containsKey("error")) {
+      throw Exception(result["error"]);
+    }
+
+    return result["credentials"] ?? {};
+  }
 }
