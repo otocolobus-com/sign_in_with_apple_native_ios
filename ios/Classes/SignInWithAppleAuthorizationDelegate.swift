@@ -1,10 +1,3 @@
-//
-//  SignInWithAppleAuthorizationDelegate.swift
-//  sign_in_with_apple_native
-//
-//  Created by Władysław Czyżewski on 25.11.2023.
-//
-
 import Foundation
 import AuthenticationServices
 
