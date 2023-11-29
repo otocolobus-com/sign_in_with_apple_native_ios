@@ -1,4 +1,4 @@
-import 'package:sign_in_with_apple_native/sign_in_with_apple_native_authorization_result.dart';
+import 'package:sign_in_with_apple_native/types/sign_in_with_apple_native_authentication_result.dart';
 
 import 'sign_in_with_apple_native_platform_interface.dart';
 
@@ -7,9 +7,9 @@ class SignInWithAppleNative {
     return SignInWithAppleNativePlatform.instance.isAvailable();
   }
 
-  Future<SignInWithAppleNativeAuthorizationResult> authorize() async {
+  Future<SignInWithAppleNativeAuthenticationResult> authorize() async {
     final result = await SignInWithAppleNativePlatform.instance.authorize();
 
-    return SignInWithAppleNativeAuthorizationResult.fromMap(result);
+    return SignInWithAppleNativeAuthenticationResult.fromMap(result);
   }
 }

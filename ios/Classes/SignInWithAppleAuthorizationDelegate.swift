@@ -9,16 +9,45 @@ class SignInWithAppleAuthorizationDelegate: NSObject, ASAuthorizationControllerD
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let authorizationResult = authorization.credential as? ASAuthorizationAppleIDCredential {
-            callback(["credential": [
-                "user": authorizationResult.user
-            ]])
+        if let authenticationResult = authorization.credential as? ASAuthorizationAppleIDCredential {
+            callback([
+                "isSuccess": true,
+                "credential": [
+                    "id": authenticationResult.user,
+                    "idToken": authenticationResult.identityToken.map({ value in
+                        return String(data: value, encoding: .utf8)
+                    }) as Any,
+                    "email": authenticationResult.email as Any,
+                    "fullName": authenticationResult.fullName.map({ value in
+                        return [
+                            "givenName": value.givenName,
+                            "familyName": value.familyName,
+                            "namePrefix": value.namePrefix,
+                            "nameSuffix": value.nameSuffix,
+                            "middleName": value.middleName,
+                            "description": value.description,
+                            "nickname": value.nickname
+                        ]
+                    }) as Any,
+                    "authorizedScopes": authenticationResult.authorizedScopes,
+                    "authorizationCode": authenticationResult.authorizationCode.map({ value in
+                        return String(data: value, encoding: .utf8)
+                    }) as Any
+                ]
+            ])
+            return
         }
 
-        callback(["error": "Notauthorized"])
+        callback([
+            "isSuccess": false,
+            "error": "Notauthorized"
+        ])
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        callback(["error": error.localizedDescription])
+        callback([
+            "isSuccess": false,
+            "error": error.localizedDescription
+        ])
     }
 }

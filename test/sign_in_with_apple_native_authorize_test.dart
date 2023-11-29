@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native.dart';
-import 'package:sign_in_with_apple_native/sign_in_with_apple_native_authorization_result.dart';
+import 'package:sign_in_with_apple_native/types/sign_in_with_apple_native_authentication_result.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
@@ -22,7 +22,7 @@ class MockSignInWithAppleNativePlatform
 
   @override
   Future<Map> authorize() => Future.value({
-        "user": "test",
+        "id": "test",
       });
 }
 
@@ -44,7 +44,7 @@ void main() {
     SignInWithAppleNativePlatform.instance = fakePlatform;
 
     final result = await signInWithAppleNativePlugin.authorize();
-    expect(result, isInstanceOf<SignInWithAppleNativeAuthorizationResult>());
-    expect(result.user, "test");
+    expect(result, isInstanceOf<SignInWithAppleNativeAuthenticationResult>());
+    expect(result.id, "test");
   });
 }

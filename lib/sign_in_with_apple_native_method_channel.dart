@@ -18,10 +18,18 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
     final result =
         await methodChannel.invokeMapMethod<String, dynamic>('authorize') ?? {};
 
-    if (result.keys.isEmpty || result.containsKey("error")) {
+    if (result.keys.isEmpty || !result.containsKey("isSuccess")) {
+      throw Exception("Result is empty");
+    }
+
+    if (result["isSuccess"] == false) {
       throw Exception(result["error"]);
     }
 
-    return result["credential"] ?? {};
+    if (!result.containsKey("credential")) {
+      throw Exception("Result does not contain credential");
+    }
+
+    return result["credential"];
   }
 }

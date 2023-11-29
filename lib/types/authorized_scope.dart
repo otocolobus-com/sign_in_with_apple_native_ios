@@ -1,0 +1,4 @@
+enum AuthorizedScope {
+  email,
+  fullName,
+}

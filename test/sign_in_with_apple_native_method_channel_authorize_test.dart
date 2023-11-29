@@ -26,7 +26,8 @@ void main() {
     expect(() => platform.authorize(), throwsException);
   });
 
-  test('authorize should throw if result contains error', () async {
+  test('authorize should throw if result doesn\'t contains isSuccess',
+      () async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
       channel,
@@ -40,21 +41,21 @@ void main() {
     expect(() => platform.authorize(), throwsException);
   });
 
-  test(
-      'authorize should return empty map if result does not contain credential',
+  test('authorize should throw exception if result does not contain credential',
       () async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
         return {
+          "isSuccess": true,
           "credentials":
               "credentials" // "credentials" but "credential" is expected
         };
       },
     );
 
-    expect(await platform.authorize(), {});
+    expect(() => platform.authorize(), throwsException);
   });
 
   test('authorize should return credential if result contains credential',
@@ -64,15 +65,31 @@ void main() {
       channel,
       (MethodCall methodCall) async {
         return {
+          "isSuccess": true,
           "credential": {
-            "user": "user",
+            "id": "user",
           },
         };
       },
     );
 
     expect(await platform.authorize(), {
-      "user": "user",
+      "id": "user",
     });
+  });
+
+  test('should throw exception if isSuccess is false', () {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      channel,
+      (MethodCall methodCall) async {
+        return {
+          "isSuccess": false,
+          "error": "error",
+        };
+      },
+    );
+
+    expect(() => platform.authorize(), throwsException);
   });
 }
