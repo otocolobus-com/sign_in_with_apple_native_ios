@@ -1,4 +1,5 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:sign_in_with_apple_native/types/credential_state.dart';
 
 import 'sign_in_with_apple_native_method_channel.dart';
 
@@ -29,5 +30,9 @@ abstract class SignInWithAppleNativePlatform extends PlatformInterface {
 
   Future<Map> authorize() {
     throw UnimplementedError('authorize() has not been implemented.');
+  }
+
+  Future<CredentialState> get credentialState {
+    throw UnimplementedError('credentialState has not been implemented.');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:sign_in_with_apple_native/types/credential_state.dart';
 
 import 'sign_in_with_apple_native_platform_interface.dart';
 
@@ -31,5 +32,17 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
     }
 
     return result["credential"];
+  }
+
+  @override
+  Future<CredentialState> get credentialState async {
+    final result = await methodChannel.invokeMethod<int>("getState") ??
+        CredentialState.notFound.value;
+    return CredentialState.values.firstWhere(
+      (element) => element.value == result,
+      orElse: () {
+        throw Exception("Unknown credential state");
+      },
+    );
   }
 }

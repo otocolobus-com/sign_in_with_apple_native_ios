@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native_platform_interface.dart';
-import 'package:sign_in_with_apple_native/sign_in_with_apple_native_method_channel.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'package:sign_in_with_apple_native/types/credential_state.dart';
 
 class MockSignInWithAppleNativePlatform
@@ -16,23 +15,19 @@ class MockSignInWithAppleNativePlatform
 
   @override
   Future<CredentialState> get credentialState =>
-      Future.value(CredentialState.notFound);
+      Future.value(CredentialState.authorized);
 }
 
 void main() {
-  final SignInWithAppleNativePlatform initialPlatform =
-      SignInWithAppleNativePlatform.instance;
-
-  test('$MethodChannelSignInWithAppleNative is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelSignInWithAppleNative>());
-  });
-
-  test('isAvailable', () async {
+  test('should bypass value', () async {
     SignInWithAppleNative signInWithAppleNativePlugin = SignInWithAppleNative();
     MockSignInWithAppleNativePlatform fakePlatform =
         MockSignInWithAppleNativePlatform();
     SignInWithAppleNativePlatform.instance = fakePlatform;
 
-    expect(await signInWithAppleNativePlugin.isAvailable(), true);
+    expect(
+      await signInWithAppleNativePlugin.credentialState,
+      CredentialState.authorized,
+    );
   });
 }

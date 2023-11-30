@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native_button.dart';
+import 'package:sign_in_with_apple_native/types/credential_state.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,15 +58,26 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(children: [
             Text('Is "Sign In with Apple" available: $_isAvailable\n'),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 60,
-              child: SignInWithAppleNativeButton(
-                onPressed: () async {
-                  await _authorize();
-                },
-              ),
-            ),
+            FutureBuilder(
+                future: _signInWithAppleNativePlugin.credentialState,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data != CredentialState.authorized) {
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 60,
+                        child: SignInWithAppleNativeButton(
+                          onPressed: _authorize,
+                        ),
+                      );
+                    }
+                    return Text('Credential state: ${snapshot.data}');
+                  } else if (snapshot.hasError) {
+                    return Text('Credential state: ${snapshot.error}');
+                  } else {
+                    return const Text('Credential state: loading...');
+                  }
+                }),
           ]),
         ),
       ),
@@ -74,10 +86,11 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _authorize() async {
     try {
-      final isAuthorized = await _signInWithAppleNativePlugin.authorize();
-      print('isAuthorized: $isAuthorized');
+      final authorizationResult =
+          await _signInWithAppleNativePlugin.authorize();
+      print('authorizationResult: ${authorizationResult.idToken}');
     } catch (e) {
-      print('isAuthorized: false');
+      print('authorizationResult: empty');
     }
   }
 }

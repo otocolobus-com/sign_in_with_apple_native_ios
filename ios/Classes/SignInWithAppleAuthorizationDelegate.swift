@@ -10,6 +10,16 @@ class SignInWithAppleAuthorizationDelegate: NSObject, ASAuthorizationControllerD
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let authenticationResult = authorization.credential as? ASAuthorizationAppleIDCredential {
+            do {
+                try KeychainItem.add(name: "currentUserId", value: authenticationResult.user)
+            } catch {
+                callback([
+                    "isSuccess": false,
+                    "error": "Could not add item to keychain"
+                ])
+                return
+            }
+
             callback([
                 "isSuccess": true,
                 "credential": [

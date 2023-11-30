@@ -30,8 +30,17 @@ public class SignInWithAppleNativePlugin: NSObject, FlutterPlugin {
         )
         controller.delegate = delegate
         controller.performRequests()
+    case "getState":
+        let provider = ASAuthorizationAppleIDProvider()
+        do {
+            try provider.getCredentialState(forUserID: KeychainItem.currentUserId) { status, error in
+                result(status.rawValue)
+            }
+        } catch {
+            result(ASAuthorizationAppleIDProvider.CredentialState.notFound.rawValue)
+        }
     default:
-      result(FlutterMethodNotImplemented)
+        result(FlutterMethodNotImplemented)
     }
   }
 }
