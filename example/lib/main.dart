@@ -25,6 +25,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    _signInWithAppleNativePlugin.onAuthenticationRevoked.listen((event) {
+      setState(() {});
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -89,6 +92,7 @@ class _MyAppState extends State<MyApp> {
       final authorizationResult =
           await _signInWithAppleNativePlugin.authorize();
       print('authorizationResult: ${authorizationResult.idToken}');
+      setState(() {});
     } catch (e) {
       print('authorizationResult: empty');
     }

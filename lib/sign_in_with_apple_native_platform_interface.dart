@@ -24,6 +24,11 @@ abstract class SignInWithAppleNativePlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  Stream<CredentialState> get onAuthenticationRevoked {
+    throw UnimplementedError(
+        'onAuthenticationRevoked has not been implemented.');
+  }
+
   Future<bool> isAvailable() {
     throw UnimplementedError('isAvailable() has not been implemented.');
   }

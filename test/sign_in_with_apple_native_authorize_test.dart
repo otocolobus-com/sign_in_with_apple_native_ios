@@ -9,6 +9,12 @@ class MockSignInWithAppleNativePlatformWithEmptyAuthResult
     with MockPlatformInterfaceMixin
     implements SignInWithAppleNativePlatform {
   @override
+  Stream<CredentialState> get onAuthenticationRevoked {
+    throw UnimplementedError(
+        'onAuthenticationRevoked has not been implemented.');
+  }
+
+  @override
   Future<bool> isAvailable() => Future.value(true);
 
   @override
@@ -22,6 +28,12 @@ class MockSignInWithAppleNativePlatformWithEmptyAuthResult
 class MockSignInWithAppleNativePlatform
     with MockPlatformInterfaceMixin
     implements SignInWithAppleNativePlatform {
+  @override
+  Stream<CredentialState> get onAuthenticationRevoked {
+    throw UnimplementedError(
+        'onAuthenticationRevoked has not been implemented.');
+  }
+
   @override
   Future<bool> isAvailable() => Future.value(true);
 

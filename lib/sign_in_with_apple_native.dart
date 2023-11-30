@@ -4,6 +4,10 @@ import 'package:sign_in_with_apple_native/types/sign_in_with_apple_native_authen
 import 'sign_in_with_apple_native_platform_interface.dart';
 
 class SignInWithAppleNative {
+  Stream<CredentialState> get onAuthenticationRevoked {
+    return SignInWithAppleNativePlatform.instance.onAuthenticationRevoked;
+  }
+
   Future<bool> isAvailable() {
     return SignInWithAppleNativePlatform.instance.isAvailable();
   }

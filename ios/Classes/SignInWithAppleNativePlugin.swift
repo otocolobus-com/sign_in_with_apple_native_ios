@@ -8,6 +8,10 @@ public class SignInWithAppleNativePlugin: NSObject, FlutterPlugin {
     let instance = SignInWithAppleNativePlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
 
+    let revokedAuthenticationEventChannel = FlutterEventChannel(name: "SignInWithAppleNativeRevokedAuthentication", binaryMessenger: registrar.messenger())
+    let authenticationStateListenerInstance = SignInWithAppleNotificationListener()
+    revokedAuthenticationEventChannel.setStreamHandler(authenticationStateListenerInstance)
+
     let viewFactory = SignInWithAppleViewFactory.init(messenger: registrar.messenger())
     registrar.register(viewFactory, withId: "SignInWithAppleNativeButton")
   }

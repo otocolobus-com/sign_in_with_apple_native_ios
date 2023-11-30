@@ -8,6 +8,27 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('SignInWithAppleNative');
 
+  final revokedAuthenticationEventChannel =
+      const EventChannel('SignInWithAppleNativeRevokedAuthentication');
+
+  @override
+  Stream<CredentialState> get onAuthenticationRevoked {
+    return revokedAuthenticationEventChannel
+        .receiveBroadcastStream()
+        .map((event) {
+      if (event is int) {
+        return CredentialState.values.firstWhere(
+          (element) => element.value == event,
+          orElse: () {
+            throw Exception("Unknown credential state");
+          },
+        );
+      } else {
+        throw Exception("Unknown event type");
+      }
+    });
+  }
+
   @override
   Future<bool> isAvailable() async {
     final isAvailable = await methodChannel.invokeMethod<bool>('isAvailable');
