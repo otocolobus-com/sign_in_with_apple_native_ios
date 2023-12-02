@@ -26,7 +26,9 @@ class SignInWithAppleNotificationListener : NSObject, FlutterStreamHandler {
             try provider.getCredentialState(forUserID: KeychainItem.currentUserId) { state, error in
                 do {
                     try KeychainItem.delete(name: "currentUserId")
-                    self.eventSink!(state.rawValue)
+                    DispatchQueue.main.async {
+                        self.eventSink!(state.rawValue)
+                    }
                 } catch {
                     // TODO: handle or log this exception?
                 }
