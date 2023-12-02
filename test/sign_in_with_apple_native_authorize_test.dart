@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native.dart';
+import 'package:sign_in_with_apple_native/types/authorization_scope.dart';
 import 'package:sign_in_with_apple_native/types/credential_state.dart';
 import 'package:sign_in_with_apple_native/types/sign_in_with_apple_native_authentication_result.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native_platform_interface.dart';
@@ -18,7 +19,8 @@ class MockSignInWithAppleNativePlatformWithEmptyAuthResult
   Future<bool> isAvailable() => Future.value(true);
 
   @override
-  Future<Map> authorize() => Future.value({});
+  Future<Map> authorize({Iterable<AuthorizationScope>? requestedScopes}) =>
+      Future.value({});
 
   @override
   Future<CredentialState> get credentialState =>
@@ -38,7 +40,8 @@ class MockSignInWithAppleNativePlatform
   Future<bool> isAvailable() => Future.value(true);
 
   @override
-  Future<Map> authorize() => Future.value({
+  Future<Map> authorize({Iterable<AuthorizationScope>? requestedScopes}) =>
+      Future.value({
         "id": "test",
       });
 

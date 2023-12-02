@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:sign_in_with_apple_native/types/authorization_scope.dart';
 import 'package:sign_in_with_apple_native/types/credential_state.dart';
 
 import 'sign_in_with_apple_native_platform_interface.dart';
@@ -36,9 +37,15 @@ class MethodChannelSignInWithAppleNative extends SignInWithAppleNativePlatform {
   }
 
   @override
-  Future<Map> authorize() async {
-    final result =
-        await methodChannel.invokeMapMethod<String, dynamic>('authorize') ?? {};
+  Future<Map> authorize({Iterable<AuthorizationScope>? requestedScopes}) async {
+    final result = await methodChannel.invokeMapMethod<String, dynamic>(
+          'authorize',
+          {
+            'requestedScopes':
+                requestedScopes?.map((e) => e.value).toList() ?? [],
+          },
+        ) ??
+        {};
 
     if (result.keys.isEmpty || !result.containsKey("isSuccess")) {
       throw Exception("Result is empty");

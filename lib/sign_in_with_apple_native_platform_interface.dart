@@ -1,4 +1,5 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:sign_in_with_apple_native/types/authorization_scope.dart';
 import 'package:sign_in_with_apple_native/types/credential_state.dart';
 
 import 'sign_in_with_apple_native_method_channel.dart';
@@ -33,7 +34,7 @@ abstract class SignInWithAppleNativePlatform extends PlatformInterface {
     throw UnimplementedError('isAvailable() has not been implemented.');
   }
 
-  Future<Map> authorize() {
+  Future<Map> authorize({Iterable<AuthorizationScope>? requestedScopes}) {
     throw UnimplementedError('authorize() has not been implemented.');
   }
 

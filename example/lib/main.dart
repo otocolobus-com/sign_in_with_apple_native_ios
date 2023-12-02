@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native.dart';
 import 'package:sign_in_with_apple_native/sign_in_with_apple_native_button.dart';
+import 'package:sign_in_with_apple_native/types/authorization_scope.dart';
 import 'package:sign_in_with_apple_native/types/credential_state.dart';
 
 void main() {
@@ -89,8 +90,12 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _authorize() async {
     try {
-      final authorizationResult =
-          await _signInWithAppleNativePlugin.authorize();
+      final authorizationResult = await _signInWithAppleNativePlugin.authorize(
+        requestedScopes: [
+          AuthorizationScope.email,
+          AuthorizationScope.fullName,
+        ],
+      );
       print('authorizationResult: ${authorizationResult.idToken}');
       setState(() {});
     } catch (e) {

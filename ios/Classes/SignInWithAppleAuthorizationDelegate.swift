@@ -39,7 +39,9 @@ class SignInWithAppleAuthorizationDelegate: NSObject, ASAuthorizationControllerD
                             "nickname": value.nickname
                         ]
                     }) as Any,
-                    "authorizedScopes": authenticationResult.authorizedScopes,
+                    "authorizedScopes": authenticationResult.authorizedScopes.map({ scope in
+                        return scope.rawValue
+                    }),
                     "authorizationCode": authenticationResult.authorizationCode.map({ value in
                         return String(data: value, encoding: .utf8)
                     }) as Any

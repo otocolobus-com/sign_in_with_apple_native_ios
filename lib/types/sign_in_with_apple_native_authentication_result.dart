@@ -1,4 +1,4 @@
-import 'package:sign_in_with_apple_native/types/authorized_scope.dart';
+import 'package:sign_in_with_apple_native/types/authorization_scope.dart';
 import 'package:sign_in_with_apple_native/types/person_name_components.dart';
 
 class SignInWithAppleNativeAuthenticationResult {
@@ -6,7 +6,7 @@ class SignInWithAppleNativeAuthenticationResult {
   String? idToken;
   String? email;
   PersonNameComponents? fullName;
-  Iterable<AuthorizedScope>? authorizedScopes;
+  Iterable<AuthorizationScope>? authorizedScopes;
   String? authorizationCode;
 
   SignInWithAppleNativeAuthenticationResult._(
@@ -31,8 +31,14 @@ class SignInWithAppleNativeAuthenticationResult {
           ? PersonNameComponents.fromMap(map['fullName'])
           : null,
       authorizedScopes: map['authorizedScopes'] != null
-          ? (map['authorizedScopes'] as List)
-              .map((e) => AuthorizedScope.values[e])
+          ? (map['authorizedScopes'] as List).map(
+              (e) => AuthorizationScope.values.firstWhere(
+                (element) => element.value == e,
+                orElse: () => throw Exception(
+                  'Invalid authorization result: unknown scope $e',
+                ),
+              ),
+            )
           : null,
       authorizationCode: map['authorizationCode'],
     );

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sign_in_with_apple_native/types/authorized_scope.dart';
+import 'package:sign_in_with_apple_native/types/authorization_scope.dart';
 import 'package:sign_in_with_apple_native/types/sign_in_with_apple_native_authentication_result.dart';
 
 void main() {
@@ -104,12 +104,21 @@ void main() {
   test('should map authorizedScopes property when not null', () {
     final result = SignInWithAppleNativeAuthenticationResult.fromMap({
       "id": "test",
-      "authorizedScopes": [0, 1],
+      "authorizedScopes": ["fullName", "email"],
     });
 
     expect(result.authorizedScopes!.length, 2);
-    expect(result.authorizedScopes!.first, AuthorizedScope.email);
-    expect(result.authorizedScopes!.last, AuthorizedScope.fullName);
+    expect(result.authorizedScopes!.first, AuthorizationScope.fullName);
+    expect(result.authorizedScopes!.last, AuthorizationScope.email);
+  });
+
+  test('should throw exception if authorizedScopes property is invalid', () {
+    expect(
+        () => SignInWithAppleNativeAuthenticationResult.fromMap({
+              "id": "test",
+              "authorizedScopes": ["invalid"],
+            }).authorizedScopes!, // enumerate iterable to force evaluation
+        throwsException);
   });
 
   test('should map authorizedScopes property when null', () {

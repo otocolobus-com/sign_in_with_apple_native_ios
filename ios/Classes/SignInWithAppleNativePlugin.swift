@@ -21,9 +21,22 @@ public class SignInWithAppleNativePlugin: NSObject, FlutterPlugin {
     case "isAvailable":
         result(true)
     case "authorize":
+        guard let args = call.arguments as? [String: Any] else {
+            result([
+                "isSuccess": false,
+                "error": "Invalid arguments"
+            ])
+            return
+        }
+
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
-        request.requestedScopes = []
+        if let requestedScopes = args["requestedScopes"] as? [String] {
+            request.requestedScopes = requestedScopes.map({ value in
+                return ASAuthorization.Scope(value)
+            })
+        }
+
         let controller = ASAuthorizationController(authorizationRequests: [request])
         var delegate: ASAuthorizationControllerDelegate?
         delegate = SignInWithAppleAuthorizationDelegate(
