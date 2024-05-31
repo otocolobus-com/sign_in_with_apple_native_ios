@@ -4,12 +4,12 @@ Pod::Spec.new do |s|
   s.summary          = 'The Flutter plugin for iOS to use the native implementation of "Sign In with Apple" authorization.'
   s.description      = <<-DESC
   The Flutter plugin for iOS to use the native implementation of "Sign In with Apple" authorization.
-  
+
   The plugin provides the native "Sign In with Apple" button and API to handle the authorization.
                        DESC
-  s.homepage         = 'https://ione.software'
+  s.homepage         = 'https://otocolobus.com'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Władysław Czyżewski' => 'wladyslaw.czyzewski@ione.software' }
+  s.author           = { 'Władysław Czyżewski' => 'wladyslaw.czyzewski@otocolobus.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'

@@ -66,4 +66,4 @@ MIT
 
 ## Author
 
-[Władysław Czyżewski](https://github.com/wladyslawczyzewski) (https://ione.software)
+[Władysław Czyżewski](https://github.com/wladyslawczyzewski) (https://otocolobus.com)

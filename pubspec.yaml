@@ -1,7 +1,7 @@
 name: sign_in_with_apple_native
 description: "A Flutter plugin for iOS 13+ that enables you to use native 'Sign in with Apple' functionality."
 version: 0.0.1
-homepage: https://github.com/ionesoftware/sign_in_with_apple_native_ios
+homepage: https://github.com/otocolobus-com/sign_in_with_apple_native_ios
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
