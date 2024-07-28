@@ -19,10 +19,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sign_in_with_apple_native/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  integration_test: efd9b55ed73f9a84c75a427a3b37bbdb4967d136
-  sign_in_with_apple_native: e6a088655180a9660a0d916da55ea0fa692623c1
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
+  sign_in_with_apple_native: c4d96cfc1a9f5e57135b3509626de17d46c74cf8
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2
